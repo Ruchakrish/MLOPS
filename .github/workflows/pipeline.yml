@@ -10,11 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install Dependencies
-        run: pip install -r MLOPS_10/requirements.txt
+        run: pip install -r MLOPS_10/deployment/requirements.txt
       - name: Upload Dataset to Hugging Face Hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: python MLOPS/MLOPS_10/model_building/data_register.py
+        run: python /content/MLOPS/mlops_tour/model_building/data_register.py
 
   data-prep:
     needs: register-dataset
@@ -22,11 +22,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install Dependencies
-        run: pip install -r MLOPS_10/requirements.txt
+        run: pip install -r MLOPS_10/deployment/requirements.txtt
       - name: Run Data Preparation
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: python MLOPS/MLOPS_10/model_building/prep.py
+        run: python /content/MLOPS/mlops_tour/model_building/prep.py
 
 
   model-traning:
@@ -43,7 +43,7 @@ jobs:
       - name: Model Building
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: python MLOPS/MLOPS_10/model_building/train.py
+        run: python /content/MLOPS/mlops_tour/model_building/train.py
 
   deploy-hosting:
     runs-on: ubuntu-latest
@@ -55,4 +55,4 @@ jobs:
       - name: Push files to Frontend Hugging Face Space
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: python MLOPS/MLOPS_10/hosting/hosting.py
+        run: python /content/MLOPS/mlops_tour/hosting/hosting.py
